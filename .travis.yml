@@ -5,6 +5,7 @@ jobs:
   include:
     - stage: build
       script: docker build -t $DOCKER_USER/infycre:${TRAVIS_COMMIT::7} .
+    - script: docker image list
     - script: docker login --username $DOCKER_USER --password $DOCKER_PASSWORD
     - script: echo "New image name" $DOCKER_USER/infycre:${TRAVIS_COMMIT::7} && docker push $DOCKER_USER/infycre:${TRAVIS_COMMIT::7}
     - stage: deploy

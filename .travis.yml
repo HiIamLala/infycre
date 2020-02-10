@@ -5,9 +5,7 @@ jobs:
   include:
     - stage: build
       script: docker build -t $DOCKER_USER/infycre:${TRAVIS_COMMIT::7} .
-    - script: docker image list
-    - script: docker login --username $DOCKER_USER --password $DOCKER_PASSWORD
-    - script: echo "New image name" $DOCKER_USER/infycre:${TRAVIS_COMMIT::7} && docker push $DOCKER_USER/infycre:${TRAVIS_COMMIT::7}
+      after_script: docker image list && docker login --username $DOCKER_USER --password $DOCKER_PASSWORD && echo "New image name" $DOCKER_USER/infycre:${TRAVIS_COMMIT::7} && docker push $DOCKER_USER/infycre:${TRAVIS_COMMIT::7}
     - stage: deploy
       script: git config --global user.name $GIT_USER && git config --global user.email $GIT_EMAIL
     - script: git clone https://$GIT_USER:$GIT_PASSWORD@github.com/HiIamLala/infycre-argocd.git && cd infycre-argocd

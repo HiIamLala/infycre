@@ -4,7 +4,7 @@ sudo: required
 jobs:
   include:
     - stage: build
-      script: docker build -t $DOCKER_USER/infycre:${TRAVIS_COMMIT::7}
+      script: docker build -t $DOCKER_USER/infycre:${TRAVIS_COMMIT::7} .
     - stage: push
       script: docker login --username $DOCKER_USER --password $DOCKER_PASSWORD && docker push $DOCKER_USER/infycre:${TRAVIS_COMMIT::7}
     - stage: deploy
